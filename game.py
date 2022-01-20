@@ -1,11 +1,14 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # plateau: List[List[nat]]
 # liste de listes (lignes du plateau) d'entiers correspondant aux contenus des cases du plateau de jeu
 
-# coup: Pair[nat nat]
+# coup:[nat nat]
 # Numero de ligne et numero de colonne de la case correspondante a un coup d'un joueur
 
 # Jeu
-# jeu:N-UPLET[plateau nat List[coup] List[coup] Pair[nat nat]]
+# jeu:[plateau nat List[coup] List[coup] List[nat nat]]
 # Structure de jeu comportant :
 #           - le plateau de jeu
 #           - Le joueur a qui c'est le tour de jouer (1 ou 2)
@@ -24,7 +27,7 @@ def getCopieJeu(jeu):
     """ jeu->jeu
         Retourne une copie du jeu passe en parametre
         Quand on copie un jeu on en calcule forcement les coups valides avant
-    """r
+    """
 
 def finJeu(jeu):
     """ jeu -> bool
@@ -38,11 +41,26 @@ def saisieCoup(jeu):
         et qu'elle retourne obligatoirement un coup valide
     """
 
+def getCoupsValides(jeu):
+    """ jeu  -> List[coup]
+        Retourne la liste des coups valides dans le jeu passe en parametre
+        Si None, alors on met ï¿½ jour la liste des coups valides
+    """
+
+    if jeu[2] is None: 
+        jeu[2]=game.listeCoupsValides(jeu)
+    return jeu[2]
+
+def coupValide(jeu,coup):
+    """jeu*coup->bool
+        Retourne vrai si le coup appartient a la liste de coups valides du jeu
+   """
+
 def joueCoup(jeu,coup):
     """jeu*coup->void
         Joue un coup a l'aide de la fonction joueCoup defini dans le module game
         Hypothese:le coup est valide
-        Met tous les champs de jeu à jour (sauf coups valides qui est fixée à None)
+        Met tous les champs de jeu Ã  jour (sauf coups valides qui est fixÃ©e Ã  None)
     """
 
 def initialiseJeu():
@@ -86,11 +104,7 @@ def getCoupsJoues(jeu):
         Retourne la liste des coups joues dans le jeu passe en parametre
     """
 
-def getCoupsValides(jeu):
-    """ jeu  -> List[coup]
-        Retourne la liste des coups valides dans le jeu passe en parametre
-        Si None, alors on met à jour la liste des coups valides
-    """
+
 
 def getScores(jeu):
     """ jeu  -> Pair[nat nat]
