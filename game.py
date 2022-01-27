@@ -213,7 +213,7 @@ def changeJoueur(jeu):
 	""" jeu  -> void
 		Change le joueur a qui c'est le tour de jouer dans le jeu passe en parametre (1 ou 2)
 	"""
-	return (jeu[1] % 2 + 1)
+	game.changeJoueur(jeu)
 
 def getScore(jeu,joueur):
 	""" jeu*nat->int
