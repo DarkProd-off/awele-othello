@@ -7,34 +7,26 @@ import game
 game.game=awele
 sys.path.append("./Joueurs")
 import joueur_humain
-game.joueur1=joueur_humain
-game.joueur2=joueur_humain
+import joueur_aleatoire
+game.joueur1=joueur_aleatoire
+game.joueur2=joueur_aleatoire
 
 import time
 
 jeu = game.initialiseJeu()
 
-game.affiche(jeu)
+#game.affiche(jeu)
 
 
 def partie():
 	jeu = game.initialiseJeu()
-	print()
+	#print()
 	while not game.finJeu(jeu):
 		coup = game.saisieCoup(jeu)
 		game.joueCoup(jeu, coup)
 
+	print(game.getScores(jeu))
+	game.affiche(jeu)
 	return game.getGagnant(jeu)
 
 print("Le gagnant est: " + str(partie()))
-
-"""
-lstCoupsValides = game.listeCoupsValides(jeu)
-
-
-	for x in range(len(lstCoupsValides)):
-		if coupValide(jeu, lstCoupsValides[x]):
-			return lstCoupsValides[x]
-
-	return lstCoupsValides[0]
-"""

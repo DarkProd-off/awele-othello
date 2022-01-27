@@ -83,9 +83,9 @@ def joueCoup(jeu, coup):
 
 	#Update score
 	if jeu[1] == 1:
-		
 		score1, score2 = jeu[4]
 		jeu[4] = (score1 + scorePlayer, score2) 
+
 	else:
 		score1, score2 = jeu[4]
 		jeu[4] = (score1, score2 + scorePlayer)
@@ -94,8 +94,10 @@ def joueCoup(jeu, coup):
 	#Switch adversaire
 	changeJoueur(jeu)
 
-
 	#Update coup joué
+	if jeu[3] is None:
+		jeu[3] = []
+
 	jeu[3].append(coup)
 
 	# Update coups Valides
@@ -135,10 +137,10 @@ def estValide(jeu, coup, checkNourrit=False):
 
 def listeCoupsValides(jeu):
 	affame = estAffame(jeu, jeu[1] % 2 + 1)
-	print("Affamé:" + str(affame))
+	#print("Joueur: "+str(jeu[1])+" est Affamé:" + str(affame))
 
 	return [(jeu[1] - 1, c) for c in range(6) if estValide(jeu, (jeu[1] - 1, c), affame)]
 
 
 def finJeu(jeu):
-	return estAffame(jeu, jeu[1])
+	return estAffame(jeu, jeu[1]) or listeCoupsValides(jeu) == []

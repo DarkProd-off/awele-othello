@@ -57,11 +57,11 @@ def saisieCoup(jeu):
 	if gameCopy[1] == 2:
 		joueur = joueur2
 	coup = joueur.saisieCoup(gameCopy)
-	print(coup)
+	#print(coup)
 	while not coupValide(gameCopy, coup):
-		print("Coup non valide")
+		#print("Coup non valide")
 		coup = joueur.saisieCoup(gameCopy)
-		print("Coup: "+str(coup))
+		#print("Coup: "+str(coup))
 		time.sleep(2)
 
 	return coup
@@ -71,7 +71,7 @@ def getCoupsValides(jeu):
 		Retourne la liste des coups valides dans le jeu passe en parametre
 		Si None, alors on met a jour la liste des coups valides
 	"""
-	print("Jeu 2 coups valide est:"+str(jeu[2]))
+	#print("Jeu 2 coups valide est:"+str(jeu[2]))
 	"""if jeu[2] is None:"""
 	jeu[2] = game.listeCoupsValides(jeu)
 	return jeu[2]
@@ -123,7 +123,7 @@ def affiche(jeu):
 	"""
 	listeCoupsJoues = getCoupsJoues(jeu)
 	if listeCoupsJoues is not None:
-		print("Coup joue = " + listeCoupsJoues[len(listeCoupsJoues)])
+		print("Coup joue = " + str(listeCoupsJoues))
 	else:
 		print("Coup joue = " + str([]))
 
