@@ -16,6 +16,9 @@
 #           - La liste des coups joues jusqu'a present dans le jeu
 #           - Une paire de scores correspondant au score du joueur 1 et du score du joueur 2
 
+import copy
+import time
+
 game=None #Contient le module du jeu specifique: awele ou othello
 joueur1=None #Contient le module du joueur 1
 joueur2=None #Contient le module du joueur 2
@@ -28,15 +31,20 @@ def getCopieJeu(jeu):
 		Retourne une copie du jeu passe en parametre
 		Quand on copie un jeu on en calcule forcement les coups valides avant
 	"""
-	lstCoupsValide = getCoupsValides(jeu)
-	jeu[2] = lstCoupsValide
-	return jeu 
+	newJeu = [[], 0, None, None, None]
+	newJeu[0] = copy.deepcopy(jeu[0])
+	newJeu[1] = jeu[1]
+	newJeu[2] = getCoupsValides(jeu)
+	newJeu[3] = copy.deepcopy(jeu[3])
+	newJeu[4] = copy.deepcopy(jeu[4])
+
+	return newJeu 
 
 def finJeu(jeu):
 	""" jeu -> bool
 		Retourne vrai si c'est la fin du jeu
 	"""
-	return (True if getCoupsValides(jeu) == [] else False)
+	return game.finJeu(jeu)
 
 def saisieCoup(jeu):
 	""" jeu -> coup
@@ -44,30 +52,35 @@ def saisieCoup(jeu):
 		On suppose que la fonction n'est appelee que si il y a au moins un coup valide possible
 		et qu'elle retourne obligatoirement un coup valide
 	"""
-	lstCoupsValides = game.listeCoupsValides(jeu)
+	gameCopy = getCopieJeu(jeu)
+	joueur = joueur1
+	if gameCopy[1] == 2:
+		joueur = joueur2
+	coup = joueur.saisieCoup(gameCopy)
+	print(coup)
+	while not coupValide(gameCopy, coup):
+		print("Coup non valide")
+		coup = joueur.saisieCoup(gameCopy)
+		print("Coup: "+str(coup))
+		time.sleep(2)
 
-
-	for x in range(len(lstCoupsValides)):
-		if coupValide(jeu, lstCoupsValides[x]):
-			return lstCoupsValides[x]
-
-	return lstCoupsValides[0]
+	return coup
 
 def getCoupsValides(jeu):
 	""" jeu  -> List[coup]
 		Retourne la liste des coups valides dans le jeu passe en parametre
 		Si None, alors on met a jour la liste des coups valides
 	"""
-
-	if jeu[2] is None: 
-		jeu[2]=game.listeCoupsValides(jeu)
+	print("Jeu 2 coups valide est:"+str(jeu[2]))
+	"""if jeu[2] is None:"""
+	jeu[2] = game.listeCoupsValides(jeu)
 	return jeu[2]
 
 def coupValide(jeu,coup):
 	"""jeu*coup->bool
 		Retourne vrai si le coup appartient a la liste de coups valides du jeu
 	"""
-	return coup in game.getCoupsValides(jeu)
+	return coup in getCoupsValides(jeu)
 
 def joueCoup(jeu,coup):
 	"""jeu*coup->void
@@ -75,19 +88,7 @@ def joueCoup(jeu,coup):
 		Hypothese:le coup est valide
 		Met tous les champs de jeu à jour (sauf coups valides qui est fixée à None)
 	"""
-
-	if coupValide(jeu, coup):
-		score = getScores(jeu, jeu[1])
-
-		if jeu[1] == 1:
-			
-			score1, score2 = jeu[4]
-			jeu[4] = (score1 + X, score2) 
-		else:
-			score1, score2 = jeu[4]
-			jeu[4] = (score1, score2 + X) 
-
-		changeJoueur(jeu)
+	game.joueCoup(jeu, coup)
 
 
 def initialiseJeu():
@@ -100,12 +101,7 @@ def getGagnant(jeu):
 	"""jeu->nat
 	Retourne le numero du joueur gagnant apres avoir finalise la partie. Retourne 0 si match nul
 	"""
-	if jeu[4][0] > jeu[4][1]:
-		return 1
-	elif jeu[4][0] < jeu[4][1]:
-		return 2
-	else:
-		return 0
+	return game.getGagnant(jeu)
 
 def affiche(jeu):
 	""" jeu->void
@@ -217,10 +213,7 @@ def changeJoueur(jeu):
 	""" jeu  -> void
 		Change le joueur a qui c'est le tour de jouer dans le jeu passe en parametre (1 ou 2)
 	"""
-	if jeu[1] == 1:
-		jeu[1] = 2
-	else:
-		jeu[1] = 1
+	return (jeu[1] % 2 + 1)
 
 def getScore(jeu,joueur):
 	""" jeu*nat->int

@@ -10,21 +10,31 @@ import joueur_humain
 game.joueur1=joueur_humain
 game.joueur2=joueur_humain
 
-tailleX = 2
-tailleY = 4
-
-#Init plateau
-plateau = []
-
-#Lignes
-for p in range(tailleX):
-	plateau.append([])
-
-	#Colonnes
-	for w in range(tailleY):
-		plateau[p].append(0)
-
+import time
 
 jeu = game.initialiseJeu()
 
 game.affiche(jeu)
+
+
+def partie():
+	jeu = game.initialiseJeu()
+	print()
+	while not game.finJeu(jeu):
+		coup = game.saisieCoup(jeu)
+		game.joueCoup(jeu, coup)
+
+	return game.getGagnant(jeu)
+
+print("Le gagnant est: " + str(partie()))
+
+"""
+lstCoupsValides = game.listeCoupsValides(jeu)
+
+
+	for x in range(len(lstCoupsValides)):
+		if coupValide(jeu, lstCoupsValides[x]):
+			return lstCoupsValides[x]
+
+	return lstCoupsValides[0]
+"""
