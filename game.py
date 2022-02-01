@@ -95,7 +95,12 @@ def getGagnant(jeu):
 	"""jeu->nat
 	Retourne le numero du joueur gagnant apres avoir finalise la partie. Retourne 0 si match nul
 	"""
-	return game.getGagnant(jeu)
+	if jeu[4][0] > jeu[4][1]:
+		return 1
+	elif jeu[4][0] < jeu[4][1]:
+		return 2
+	else:
+		return 0
 
 def affiche(jeu):
 	""" jeu->void
@@ -116,10 +121,7 @@ def affiche(jeu):
 		 Hypothese : le contenu de chaque case ne depasse pas 5 caracteres
 	"""
 	listeCoupsJoues = getCoupsJoues(jeu)
-	if listeCoupsJoues is not None:
-		print("Coup joue = " + str(listeCoupsJoues))
-	else:
-		print("Coup joue = " + str([]))
+	print("Coup joue = " + (str(listeCoupsJoues)))
 
 	nbLignes = len(getPlateau(jeu))
 	nbColonnes = len(getPlateau(jeu)[0])
@@ -207,7 +209,7 @@ def changeJoueur(jeu):
 	""" jeu  -> void
 		Change le joueur a qui c'est le tour de jouer dans le jeu passe en parametre (1 ou 2)
 	"""
-	game.changeJoueur(jeu)
+	jeu[1] = (jeu[1] % 2 + 1)
 
 def getScore(jeu,joueur):
 	""" jeu*nat->int
@@ -226,3 +228,11 @@ def getCaseVal(jeu, ligne, colonne):
 	"""
 
 	return jeu[0][ligne][colonne]
+
+def updateScores(jeu, scoreToAdd, joueur):
+	score1, score2 = getScores(jeu)
+	if jeu[1] == 1:
+		jeu[4] = (score1 + scoreToAdd, score2) 
+
+	else:
+		jeu[4] = (score1, score2 + scoreToAdd)

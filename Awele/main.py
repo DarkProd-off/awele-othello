@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import time
 import awele
 import sys
 sys.path.append("..")
@@ -11,7 +12,6 @@ import joueur_aleatoire
 game.joueur1=joueur_aleatoire
 game.joueur2=joueur_aleatoire
 
-import time
 
 jeu = game.initialiseJeu()
 
@@ -24,8 +24,8 @@ def partie():
 	while not game.finJeu(jeu):
 		coup = game.saisieCoup(jeu)
 		game.joueCoup(jeu, coup)
+		game.affiche(jeu)
 
-	print(game.getScores(jeu))
 	game.affiche(jeu)
 	return game.getGagnant(jeu)
 

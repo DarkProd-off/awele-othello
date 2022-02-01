@@ -2,7 +2,11 @@
 # -*- coding: utf-8 -*-
 import copy
 
-tailleX = 2
+import sys
+sys.path.append("..")
+import game
+
+tailleX = 2 #Normalement fix forcé à 2
 tailleY = 6
 
 def initialiseJeu():
@@ -22,7 +26,7 @@ def initialiseJeu():
 
 	return [plateau, 1, None, [], (0,0)]
 
-def getNextCase(case, antiHoraire):
+def getNextCase(case, antiHoraire=True):
 	if antiHoraire:
 		if case[0] == 0 and case[1] >= (tailleY - 1):
 			case = (1, (tailleY - 1))
@@ -47,9 +51,7 @@ def getNextCase(case, antiHoraire):
 def joueCoup(jeu, coup):
 	#score = getScores(jeu)
 
-	#print(getCopieJeu(jeu))
-
-	#copieJeu = getCopieJeu(jeu)
+	copieJeu = game.getCopieJeu(jeu)
 
 	#Egrainer
 	graines = jeu[0][coup[0]][coup[1]]  #Récupère le nombre de graines à semer
@@ -62,7 +64,7 @@ def joueCoup(jeu, coup):
 
 	while graines > 0:
 		#if jeu[1] == 1:
-		currentCoup = getNextCase(currentCoup, True) #Get Next Case
+		currentCoup = getNextCase(currentCoup, False) #Get Next Case
 		#else:
 			#currentCoup = getNextCase(currentCoup, False) #Get Next Case
 
@@ -90,14 +92,7 @@ def joueCoup(jeu, coup):
 	#print('Score final: '+str(scorePlayer)) 
 
 	#Update score
-	if jeu[1] == 1:
-		score1, score2 = jeu[4]
-		jeu[4] = (score1 + scorePlayer, score2) 
-
-	else:
-		score1, score2 = jeu[4]
-		jeu[4] = (score1, score2 + scorePlayer)
-
+	game.updateScores(jeu, scorePlayer, jeu[1])
 
 	#Update coup joué
 	jeu[3].append(coup)
@@ -106,23 +101,12 @@ def joueCoup(jeu, coup):
 	jeu[2] = None
 
 	#Si joueur adverse affamé alors on reprend le jeu initial
-	if estAffame(jeu, jeu[1] % 2 + 1):
-		jeu = copy.deepcopy(jeu)
+	if estAffame(jeu, (jeu[1] % 2 + 1)):
+		jeu = copieJeu
 
 	#Update joueur qui va jouer
-	changeJoueur(jeu)
+	game.changeJoueur(jeu)
 
-def changeJoueur(jeu):
-	jeu[1] = (jeu[1] % 2 + 1)
-
-
-def getGagnant(jeu):
-	if jeu[4][0] > jeu[4][1]:
-		return 1
-	elif jeu[4][0] < jeu[4][1]:
-		return 2
-	else:
-		return 0
 
 def estAffame(jeu, joueur):
 	return sum(jeu[0][joueur - 1]) == 0
@@ -153,4 +137,4 @@ def listeCoupsValides(jeu):
 
 def finJeu(jeu):
 	#estAffame(jeu, jeu[1]) or#
-	return listeCoupsValides(jeu) == []
+	return len(listeCoupsValides(jeu)) == 0
