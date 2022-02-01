@@ -31,14 +31,8 @@ def getCopieJeu(jeu):
 		Retourne une copie du jeu passe en parametre
 		Quand on copie un jeu on en calcule forcement les coups valides avant
 	"""
-	newJeu = [[], 0, None, None, None]
-	newJeu[0] = copy.deepcopy(jeu[0])
-	newJeu[1] = jeu[1]
-	newJeu[2] = getCoupsValides(jeu)
-	newJeu[3] = copy.deepcopy(jeu[3])
-	newJeu[4] = copy.deepcopy(jeu[4])
+	return [copy.deepcopy(jeu[0]), jeu[1], getCoupsValides(jeu), copy.deepcopy(jeu[3]), copy.deepcopy(jeu[4])] 
 
-	return newJeu 
 
 def finJeu(jeu):
 	""" jeu -> bool
@@ -72,8 +66,8 @@ def getCoupsValides(jeu):
 		Si None, alors on met a jour la liste des coups valides
 	"""
 	#print("Jeu 2 coups valide est:"+str(jeu[2]))
-	"""if jeu[2] is None:"""
-	jeu[2] = game.listeCoupsValides(jeu)
+	if jeu[2] is None:
+		jeu[2] = game.listeCoupsValides(jeu)
 	return jeu[2]
 
 def coupValide(jeu,coup):

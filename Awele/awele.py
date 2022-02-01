@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import copy
+
 tailleX = 2
 tailleY = 6
 
@@ -10,14 +12,15 @@ def initialiseJeu():
 	plateau = []
 
 	#Lignes
-	for p in range(tailleX):
+	for i in range(tailleX):
 		plateau.append([])
 
 		#Colonnes
-		for w in range(tailleY):
-			plateau[p].append(4)
+		for k in range(tailleY):
+			plateau[i].append(4)
 
-	return [plateau, 1, [], None, (0,0)]
+
+	return [plateau, 1, None, [], (0,0)]
 
 def getNextCase(case, antiHoraire):
 	if antiHoraire:
@@ -41,23 +44,28 @@ def getNextCase(case, antiHoraire):
 
 	return case
 
-
 def joueCoup(jeu, coup):
 	#score = getScores(jeu)
+
+	#print(getCopieJeu(jeu))
 
 	#copieJeu = getCopieJeu(jeu)
 
 	#Egrainer
-	graines = jeu[0][coup[0]][coup[1]]  # Récupère le nombre de graines à semer
+	graines = jeu[0][coup[0]][coup[1]]  #Récupère le nombre de graines à semer
 
-	jeu[0][coup[0]][coup[1]] = 0 #Mise a zéro de la case en de départ
+	jeu[0][coup[0]][coup[1]] = 0 #Mise à zéro de la case en de départ
 
 	currentCoup = coup #Handler sur le coup suivant/courant
 
 	eatenCases = []
 
 	while graines > 0:
+		#if jeu[1] == 1:
 		currentCoup = getNextCase(currentCoup, True) #Get Next Case
+		#else:
+			#currentCoup = getNextCase(currentCoup, False) #Get Next Case
+
 		if currentCoup != coup:
 			jeu[0][currentCoup[0]][currentCoup[1]] += 1 #Ajout d'une graine
 			graines -= 1 #On a déposé une graine sur une case donc -1
@@ -91,17 +99,18 @@ def joueCoup(jeu, coup):
 		jeu[4] = (score1, score2 + scorePlayer)
 
 
-	#Switch adversaire
-	changeJoueur(jeu)
-
 	#Update coup joué
-	if jeu[3] is None:
-		jeu[3] = []
-
 	jeu[3].append(coup)
 
 	# Update coups Valides
 	jeu[2] = None
+
+	#Si joueur adverse affamé alors on reprend le jeu initial
+	if estAffame(jeu, jeu[1] % 2 + 1):
+		jeu = copy.deepcopy(jeu)
+
+	#Update joueur qui va jouer
+	changeJoueur(jeu)
 
 def changeJoueur(jeu):
 	jeu[1] = (jeu[1] % 2 + 1)
@@ -143,4 +152,5 @@ def listeCoupsValides(jeu):
 
 
 def finJeu(jeu):
-	return estAffame(jeu, jeu[1]) or listeCoupsValides(jeu) == []
+	#estAffame(jeu, jeu[1]) or#
+	return listeCoupsValides(jeu) == []

@@ -20,7 +20,7 @@ jeu = game.initialiseJeu()
 
 def partie():
 	jeu = game.initialiseJeu()
-	#print()
+
 	while not game.finJeu(jeu):
 		coup = game.saisieCoup(jeu)
 		game.joueCoup(jeu, coup)

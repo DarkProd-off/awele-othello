@@ -14,7 +14,6 @@ def saisieCoup(jeu):
 	coupsValides = game.getCoupsValides(jeu)
 	#print("Liste des coups jouables: "+str(coupsValides))
 	
-	
 	selectedCoup = random.choice(coupsValides)
 
 	return selectedCoup
