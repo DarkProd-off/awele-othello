@@ -144,7 +144,7 @@ def affiche(jeu):
 	for x in range(0, nbLignes):
 		generatePrint(nbColonnes, beginLength)
 
-		print("  " + str(x)+"  | ", end="");
+		print("  " + str(x)+"  | ", end="")
 
 		for k in range(0, nbColonnes):
 			print(str(getCaseVal(jeu,x,k))+ " | ", end="")
