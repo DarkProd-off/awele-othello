@@ -90,6 +90,7 @@ def joueCoup(jeu, coup):
 	#Si joueur adverse affamé alors on reprend le jeu initial
 	if estAffame(jeu, (jeu[1] % 2 + 1)):
 		jeu = copieJeu
+		jeu[2] = None
 		return
 
 	#print('Score final: '+str(scorePlayer)) 
