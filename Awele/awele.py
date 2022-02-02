@@ -51,8 +51,6 @@ def getNextCase(case, antiHoraire=True):
 def joueCoup(jeu, coup):
 	#score = getScores(jeu)
 
-	copieJeu = game.getCopieJeu(jeu)
-
 	#Egrainer
 	graines = jeu[0][coup[0]][coup[1]]  #Récupère le nombre de graines à semer
 
@@ -74,20 +72,30 @@ def joueCoup(jeu, coup):
 
 			eatenCases.append(currentCoup)
 
+	print(eatenCases)
+
+
+	copieJeu = game.getCopieJeu(jeu)
 
 	#Manger
 	scorePlayer = 0
 	#print("Cases mangés: "+str(eatenCases))
-	for i in range(len(eatenCases)):
-		if eatenCases[i][0] != coup[0]: #Si case de l'ennemi
-			#print('Graines da la case a manger:  '+str(jeu[0][eatenCases[i][0]][eatenCases[i][1]]))
-			if jeu[0][eatenCases[i][0]][eatenCases[i][1]] == 2 or jeu[0][eatenCases[i][0]][eatenCases[i][1]] == 3:
-				scorePlayer += jeu[0][eatenCases[i][0]][eatenCases[i][1]]
-				#print('Manger '+str(jeu[0][eatenCases[i][0]][eatenCases[i][1]]))
+	for i in range(len(eatenCases)): #Reverse parcours
+		#print('Graines da la case a manger:  '+str(jeu[0][eatenCases[i][0]][eatenCases[i][1]]))
+		if eatenCases[-i-1][0] != coup[0] and (jeu[0][eatenCases[-i-1][0]][eatenCases[-i-1][1]] == 2 or jeu[0][eatenCases[-i-1][0]][eatenCases[-i-1][1]] == 3):
+			scorePlayer += jeu[0][eatenCases[-i-1][0]][eatenCases[-i-1][1]]
+			#print('Manger '+str(jeu[0][eatenCases[i][0]][eatenCases[i][1]]))
 
-				jeu[0][eatenCases[i][0]][eatenCases[i][1]] = 0
-				#print("Score:"+str(scorePlayer))
+			jeu[0][eatenCases[-i-1][0]][eatenCases[-i-1][1]] = 0
+			#print("Score:"+str(scorePlayer))
+		else:
+			break
 
+
+	#Si joueur adverse affamé alors on reprend le jeu initial
+	if estAffame(jeu, (jeu[1] % 2 + 1)):
+		jeu = copieJeu
+		return
 
 	#print('Score final: '+str(scorePlayer)) 
 
@@ -100,9 +108,7 @@ def joueCoup(jeu, coup):
 	# Update coups Valides
 	jeu[2] = None
 
-	#Si joueur adverse affamé alors on reprend le jeu initial
-	if estAffame(jeu, (jeu[1] % 2 + 1)):
-		jeu = copieJeu
+	
 
 	#Update joueur qui va jouer
 	game.changeJoueur(jeu)
