@@ -49,8 +49,6 @@ def getNextCase(case, antiHoraire=True):
 	return case
 
 def joueCoup(jeu, coup):
-	#score = getScores(jeu)
-
 	#Egrainer
 	graines = jeu[0][coup[0]][coup[1]]  #Récupère le nombre de graines à semer
 
@@ -71,9 +69,6 @@ def joueCoup(jeu, coup):
 			graines -= 1 #On a déposé une graine sur une case donc -1
 
 			eatenCases.append(currentCoup)
-
-	print(eatenCases)
-
 
 	copieJeu = game.getCopieJeu(jeu)
 
