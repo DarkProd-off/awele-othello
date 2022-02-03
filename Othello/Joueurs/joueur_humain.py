@@ -4,7 +4,7 @@ import sys
 sys.path.append("../..")
 import game
 
-def isInputIsInt(input1):
+def isInputInt(input1):
 	try:
 		int(input1)
 
@@ -27,7 +27,7 @@ def saisieCoup(jeu):
 		print(str(i) + " => " + str(coupsValides[i]))
 	
 	selectedCoup = input("Choississez un numéro entre 0 et "+str(len(coupsValides)-1)+": ")
-	if isInputIsInt(selectedCoup):
+	if isInputInt(selectedCoup):
 		selectedCoup = int(selectedCoup)
 		if selectedCoup >= 0 and selectedCoup < len(coupsValides) and coupsValides[selectedCoup] in coupsValides:
 			return coupsValides[selectedCoup]
