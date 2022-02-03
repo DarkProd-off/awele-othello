@@ -231,7 +231,7 @@ def getCaseVal(jeu, ligne, colonne):
 
 def updateScores(jeu, scoreToAdd, joueur):
 	score1, score2 = getScores(jeu)
-	if jeu[1] == 1:
+	if joueur == 1:
 		jeu[4] = (score1 + scoreToAdd, score2) 
 
 	else:

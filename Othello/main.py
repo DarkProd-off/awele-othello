@@ -7,16 +7,12 @@ import game
 game.game=othello
 sys.path.append("./Joueurs")
 import joueur_humain
-game.joueur1=joueur_humain
-game.joueur2=joueur_humain
+import joueur_aleatoire
+game.joueur1=joueur_aleatoire
+game.joueur2=joueur_aleatoire
 
 
-jeu = game.initialiseJeu()
-
-game.affiche(jeu)
-
-
-'''def partie():
+def partie():
 	jeu = game.initialiseJeu()
 
 	while not game.finJeu(jeu):
@@ -27,4 +23,4 @@ game.affiche(jeu)
 	game.affiche(jeu)
 	return game.getGagnant(jeu)
 
-print("Le gagnant est: " + str(partie()))'''
+print("Le gagnant est: " + str(partie()))
