@@ -27,6 +27,7 @@ def partie():
 		game.affiche(jeu)
 
 	game.affiche(jeu)
+	
 	return game.getGagnant(jeu)
 
 print("Le gagnant est: " + str(partie()))

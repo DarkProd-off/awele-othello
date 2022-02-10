@@ -137,6 +137,11 @@ def listeCoupsValides(jeu):
 	return [(jeu[1] - 1, c) for c in range(6) if estValide(jeu, (jeu[1] - 1, c), affame)]
 
 
+totalCoup = 0
+
 def finJeu(jeu):
 	#estAffame(jeu, jeu[1]) or#
-	return len(listeCoupsValides(jeu)) == 0
+	global totalCoup
+	totalCoup += 1
+	print(totalCoup)
+	return len(listeCoupsValides(jeu)) == 0 or totalCoup == 1500
