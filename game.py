@@ -121,7 +121,7 @@ def affiche(jeu):
 		 Hypothese : le contenu de chaque case ne depasse pas 5 caracteres
 	"""
 	listeCoupsJoues = getCoupsJoues(jeu)
-	#print("Coup joue = " + (str(listeCoupsJoues)))
+	print("Coup joue = " + (str(listeCoupsJoues)))
 
 	nbLignes = len(getPlateau(jeu))
 	nbColonnes = len(getPlateau(jeu)[0])
