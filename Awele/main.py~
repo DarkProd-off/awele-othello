@@ -10,7 +10,7 @@ sys.path.append("./Joueurs")
 import joueur_humain
 import joueur_aleatoire
 import joueur_minmax
-game.joueur1=joueur_aleatoire
+game.joueur1=joueur_minmax
 game.joueur2=joueur_minmax
 
 

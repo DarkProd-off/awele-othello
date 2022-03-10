@@ -143,5 +143,6 @@ def finJeu(jeu):
 	global totalCoup
 	totalCoup += 1
 	print("TotalCoup: "+str(totalCoup))
+	print(estAffame(jeu, jeu[1] % 2 + 1))
 	return (len(listeCoupsValides(jeu)) == 0) or (totalCoup == 5000)
 	
