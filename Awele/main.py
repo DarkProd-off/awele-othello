@@ -10,8 +10,11 @@ sys.path.append("./Joueurs")
 import joueur_humain
 import joueur_aleatoire
 import joueur_minmax
+import joueur_oracle
+import joueur_horizon3
+import joueur_apprentissage
 game.joueur1=joueur_aleatoire
-game.joueur2=joueur_minmax
+game.joueur2=joueur_apprentissage
 
 
 jeu = game.initialiseJeu()

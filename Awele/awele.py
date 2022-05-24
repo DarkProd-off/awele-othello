@@ -59,10 +59,7 @@ def joueCoup(jeu, coup):
 	eatenCases = []
 
 	while graines > 0:
-		#if jeu[1] == 1:
 		currentCoup = getNextCase(currentCoup, False) #Get Next Case
-		#else:
-			#currentCoup = getNextCase(currentCoup, False) #Get Next Case
 
 		if currentCoup != coup:
 			jeu[0][currentCoup[0]][currentCoup[1]] += 1 #Ajout d'une graine
@@ -74,15 +71,11 @@ def joueCoup(jeu, coup):
 
 	#Manger
 	scorePlayer = 0
-	#print("Cases mangés: "+str(eatenCases))
 	for i in range(len(eatenCases)): #Reverse parcours
-		#print('Graines da la case a manger:  '+str(jeu[0][eatenCases[i][0]][eatenCases[i][1]]))
 		if eatenCases[-i-1][0] != coup[0] and (jeu[0][eatenCases[-i-1][0]][eatenCases[-i-1][1]] == 2 or jeu[0][eatenCases[-i-1][0]][eatenCases[-i-1][1]] == 3):
 			scorePlayer += jeu[0][eatenCases[-i-1][0]][eatenCases[-i-1][1]]
-			#print('Manger '+str(jeu[0][eatenCases[i][0]][eatenCases[i][1]]))
 
 			jeu[0][eatenCases[-i-1][0]][eatenCases[-i-1][1]] = 0
-			#print("Score:"+str(scorePlayer))
 		else:
 			break
 
@@ -92,8 +85,6 @@ def joueCoup(jeu, coup):
 		jeu = copieJeu
 		jeu[2] = None
 		return
-
-	#print('Score final: '+str(scorePlayer)) 
 
 	#Update score
 	game.updateScores(jeu, scorePlayer, jeu[1])
@@ -142,6 +133,26 @@ totalCoup = 0
 def finJeu(jeu):
 	global totalCoup
 	totalCoup += 1
-	print("TotalCoup: "+str(totalCoup))
+	#print("TotalCoup: "+str(totalCoup))
 	return (len(listeCoupsValides(jeu)) == 0) or (totalCoup == 5000)
+
+def finaliseJeu(jeu):
+   """jeu->jeu
+   Met à jour le score et retourne le jeu final
+   """
+   #Le score de joueur 1
+   score1 = 0
+   #Le score de joueur 2 
+   score2 = 0
+   
+   # prend les sommes de toutes les cases pour rajouter aux scores respectifs
+   for i in range(0,6):
+      score1+=game.getCaseVal(jeu,0,i) 
+   for i in range(0,6):
+      score2+=game.getCaseVal(jeu,1,i)  
+    
+   # incrémentation du score
+   jeu[4] = (score1, score2)
+   
+   return jeu
 	

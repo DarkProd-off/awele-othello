@@ -7,18 +7,11 @@ import game
 import math
 
 # Paramètres
-horizon=5
+horizon=1
 
 global poids
 poids = [2,8,-6,4,-5]
 #poids=[2, 8, 5.880599999999999, 3.84238404, -5]
-
-#On compte le nombre de l'appel évaluation
-global cpt;
-cpt=0
-
-global param1
-param1 = []
 
 def dot(v1,v2):
     """ Hypothèse : len(v1)==len(v2)
@@ -35,9 +28,6 @@ def saisieCoup(jeu):
     return meilleurCoup
 
 def decision(jeu):
-    """jeu->(int,int)
-       Elle renvoie le coup qui a meilleur score à evaluation
-    """
     #On prend la décision
     listeCoups = game.getCoupsValides(jeu)
     meilleurScore = -math.inf    
@@ -51,7 +41,7 @@ def decision(jeu):
 
 def estimation(jeu,coup,horizon, alpha=-math.inf, beta=math.inf):
     """
-    Implémentation de l'algorithme minimax avec élégage de alpabeta
+    Implémentation de l'algorithme minimax
     """
     copie=game.getCopieJeu(jeu)
     game.joueCoup(copie,coup) 
@@ -87,9 +77,7 @@ def evaluation(jeu):
     Hypothèse : coup est valide (assuré dans saisieCoup)
     Évalue la qualité d'un coup
     """ 
-    global cpt
-    cpt=cpt+1
-    
+
     param=[]
     coup = jeu[3][-1]
     # récupère le dernier coup joué
@@ -126,9 +114,21 @@ def evaluation(jeu):
                 if(game.getCaseVal(jeu,coup[0]+j,coup[1]+k)==0):
                     nbCasesVidesAutour+=1
     param.append(nbCasesVidesAutour)
-    global param1
-    param1=param
     
     return dot(poids,param)
 
 
+def decision(jeu):
+    #On fait la décision
+    listeCoups = game.getCoupsValides(jeu)
+    meilleurScore = -math.inf
+    if game.getJoueur(jeu) == joueur:
+        listeCoups.reverse()
+    
+    meilleurCoup = listeCoups[0]
+    for coup in listeCoups:
+        scoreEval = estimation(jeu,coup,horizon)
+        if meilleurScore < scoreEval:
+            meilleurCoup = coup
+            meilleurScore = scoreEval
+    return meilleurCoup
