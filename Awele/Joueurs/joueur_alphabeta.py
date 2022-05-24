@@ -6,7 +6,7 @@ import game
 import math
 
 # Paramètres
-horizon=5
+horizon=3
 #On compte le nombre de l'appel évaluation
 global cpt
 cpt=0
@@ -16,8 +16,6 @@ param1 = []
 
 
 global poids;
-#poids=[1.9999999999671898, -0.9999999999942982, -0.9999999999920975]
-#poids=[1.9999997642755254, -0.9999998852316244, -0.9999998833817494]
 #poids = [2,-1,-1]
 poids=[1391, -16, -10]
 

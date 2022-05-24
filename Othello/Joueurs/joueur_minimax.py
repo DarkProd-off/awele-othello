@@ -11,13 +11,13 @@ horizon=1
 
 global poids
 poids = [2,8,-6,4,-5]
-#poids= [0.5694155465463905, 5.405832392482264, -2.7673318045085713, -2.21073390864954, -2.2830487387195713]
+
 
 def saisieCoup(jeu):
     """ jeu -> coup
         Retourne un coup a jouer
     """
-    global joueur # attention : ne pas nommer un paramètre de fonction "joueur" !
+    global joueur
     joueur = game.getJoueur(jeu)
     meilleurCoup=decision(jeu)
     return meilleurCoup
