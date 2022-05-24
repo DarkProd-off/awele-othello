@@ -34,8 +34,6 @@ def decision(jeu, lstCoupsValides):
 		if scoreGained >= bestScore:
 			meilleurCoup = currCoup
 
-	
-
 
 	return meilleurCoup
 

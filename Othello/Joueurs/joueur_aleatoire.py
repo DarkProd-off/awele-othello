@@ -35,11 +35,7 @@ def decision(jeu, lstCoupsValides):
 
 		if scoreGained >= bestScore:
 			bestCoup = currCoup
-
-		print(scoreGained)
-		print(bestScore)
-
-
+			
 	return bestCoup
 
 
