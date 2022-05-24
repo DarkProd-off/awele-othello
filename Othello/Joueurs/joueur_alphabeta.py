@@ -11,7 +11,7 @@ horizon=5
 
 global poids
 poids = [2,8,-6,4,-5]
-#poids=[2, 8, 5.880599999999999, 3.84238404, -5]
+
 
 #On compte le nombre de l'appel évaluation
 global cpt;
@@ -29,7 +29,7 @@ def saisieCoup(jeu):
     """ jeu -> coup
         Retourne un coup a jouer
     """
-    global joueur # attention : ne pas nommer un paramètre de fonction "joueur" !
+    global joueur 
     joueur = game.getJoueur(jeu)
     meilleurCoup=decision(jeu)
     return meilleurCoup
@@ -59,8 +59,7 @@ def estimation(jeu,coup,horizon, alpha=-math.inf, beta=math.inf):
     if horizon==1:
         return evaluation(copie)
     
-    listeCoupsVal = game.getCoupsValides(copie) # peut-être mettre avant appel evaluation ? change pas beaucoup car finJeu calcule coups valides
-
+    listeCoupsVal = game.getCoupsValides(copie) 
     if game.getJoueur(jeu) == joueur:
         listeCoupsVal.reverse()
         

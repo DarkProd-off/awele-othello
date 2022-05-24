@@ -13,7 +13,7 @@ def isInputInt(input1):
 	except ValueError:
 		return False
 
-#To Fix remove delay 1 between 2 play
+
 def saisieCoup(jeu):
 	""" jeu -> coup
 		Retourne un coup a jouer
